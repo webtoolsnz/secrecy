@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Secrecy\Exception;
 
 /**
- * Exception interface for all package specific exceptions
+ * Exception interface for all package specific exceptions.
  */
 interface ExceptionInterface extends \Throwable
 {

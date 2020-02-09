@@ -15,17 +15,17 @@ namespace Secrecy\Adapter;
 
 use JsonSchema\Constraints\Constraint;
 use JsonSchema\Exception\ValidationException;
+use JsonSchema\Validator;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\JsonException;
+use function Safe\file_get_contents;
+use function Safe\file_put_contents;
+use function Safe\json_decode;
+use function Safe\json_encode;
 use Secrecy\Exception\JsonFileLoadException;
 use Secrecy\Exception\JsonFilePersistenceException;
 use Secrecy\Exception\SecretAlreadyExistsException;
 use Secrecy\Exception\SecretNotFoundException;
-use function Safe\file_get_contents;
-use function Safe\json_decode;
-use function Safe\json_encode;
-use function Safe\file_put_contents;
-use JsonSchema\Validator;
 
 class JsonFileAdapter implements AdapterInterface
 {
@@ -34,14 +34,14 @@ class JsonFileAdapter implements AdapterInterface
     private $data;
 
     /**
-     * Json schema used to validate the secrets file when loading
+     * Json schema used to validate the secrets file when loading.
      *
      * @var array
      */
     private $schema = [
         'type' => 'object',
         'properties' => [
-            'secrets' => ['type' => 'object', 'additionalProperties' => ['type' => 'string']]
+            'secrets' => ['type' => 'object', 'additionalProperties' => ['type' => 'string']],
         ],
         'required' => ['secrets'],
         'additionalProperties' => false,
@@ -49,7 +49,7 @@ class JsonFileAdapter implements AdapterInterface
 
     /**
      * JsonFileAdapter constructor.
-     * @param string $path
+     *
      * @throws JsonFileLoadException
      */
     public function __construct(string $path)
@@ -59,16 +59,17 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function get(string $name): string
     {
         $this->assertSecretExists($name);
-        return (string)$this->data['secrets'][$name];
+
+        return (string) $this->data['secrets'][$name];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function list(): iterable
     {
@@ -76,7 +77,7 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws JsonFilePersistenceException
      */
@@ -88,8 +89,6 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * @param string $name
-     * @param string $value
      * @throws JsonFilePersistenceException
      * @throws SecretAlreadyExistsException
      */
@@ -101,7 +100,7 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function remove(string $name): void
     {
@@ -126,7 +125,7 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * Data will be encoded and persisted to filesystem, any issues should trigger an exception
+     * Data will be encoded and persisted to filesystem, any issues should trigger an exception.
      *
      * @throws JsonFilePersistenceException
      */
@@ -141,22 +140,24 @@ class JsonFileAdapter implements AdapterInterface
 
     /**
      * @param $name
+     *
      * @throws SecretNotFoundException
      */
     private function assertSecretExists($name)
     {
-        if (!array_key_exists($name, $this->data['secrets'])) {
+        if (!\array_key_exists($name, $this->data['secrets'])) {
             throw SecretNotFoundException::create($name);
         }
     }
 
     /**
      * @param $name
+     *
      * @throws SecretAlreadyExistsException
      */
     private function assertSecretDoesNotExist($name)
     {
-        if (array_key_exists($name, $this->data['secrets'])) {
+        if (\array_key_exists($name, $this->data['secrets'])) {
             throw SecretAlreadyExistsException::create($name);
         }
     }

@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Secrecy\Exception;
 
-
 class JsonFilePersistenceException extends JsonFileAdapterException
 {
-
 }

@@ -25,10 +25,10 @@ class SecretManager
     }
 
     /**
-     * Retrieve a secret with the given name
+     * Retrieve a secret with the given name.
      *
      * @param $name
-     * @return string
+     *
      * @throws Exception\SecretNotFoundException
      */
     public function get($name): string
@@ -38,8 +38,6 @@ class SecretManager
 
     /**
      * Returns an iterable consisting of key => value pairs.
-     *
-     * @return iterable
      */
     public function list(): iterable
     {
@@ -47,10 +45,8 @@ class SecretManager
     }
 
     /**
-     * Create and persist an new secret
+     * Create and persist an new secret.
      *
-     * @param string $name
-     * @param string $value
      * @throws Exception\SecretAlreadyExistsException
      */
     public function create(string $name, string $value): void
@@ -59,10 +55,8 @@ class SecretManager
     }
 
     /**
-     * Update an existing secret
+     * Update an existing secret.
      *
-     * @param string $name
-     * @param string $value
      * @throws Exception\SecretNotFoundException
      */
     public function update(string $name, string $value): void
@@ -73,7 +67,6 @@ class SecretManager
     /**
      * Remove a secret with the given name.
      *
-     * @param string $name
      * @throws Exception\SecretNotFoundException
      */
     public function remove(string $name): void
