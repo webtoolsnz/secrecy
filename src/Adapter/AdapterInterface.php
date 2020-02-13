@@ -28,6 +28,7 @@ interface AdapterInterface
 
     /**
      * Returns a iterable of key => value pairs.
+     * @return iterable<String,String>
      */
     public function list(): iterable;
 

@@ -15,7 +15,7 @@ namespace Secrecy\Exception;
 
 class SecretNotFoundException extends \Exception implements ExceptionInterface
 {
-    public static function create($name)
+    public static function create(string $name): self
     {
         return new self("Secret with the name '${name}' was not found");
     }

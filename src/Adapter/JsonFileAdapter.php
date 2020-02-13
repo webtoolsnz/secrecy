@@ -29,14 +29,20 @@ use Secrecy\Exception\SecretNotFoundException;
 
 class JsonFileAdapter implements AdapterInterface
 {
+    /**
+     * @var string
+     */
     private $path;
 
+    /**
+     * @var array<string, array>
+     */
     private $data;
 
     /**
      * Json schema used to validate the secrets file when loading.
      *
-     * @var array
+     * @var array<string, array<int|string, array<string, array<string, string>|string>|string>|string|false>
      */
     private $schema = [
         'type' => 'object',
@@ -129,7 +135,7 @@ class JsonFileAdapter implements AdapterInterface
      *
      * @throws JsonFilePersistenceException
      */
-    private function persist()
+    private function persist() : void
     {
         try {
             @file_put_contents($this->path, json_encode($this->data, JSON_PRETTY_PRINT));
@@ -139,11 +145,9 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * @param $name
-     *
      * @throws SecretNotFoundException
      */
-    private function assertSecretExists($name)
+    private function assertSecretExists(string $name) : void
     {
         if (!\array_key_exists($name, $this->data['secrets'])) {
             throw SecretNotFoundException::create($name);
@@ -151,11 +155,10 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     * @param $name
      *
      * @throws SecretAlreadyExistsException
      */
-    private function assertSecretDoesNotExist($name)
+    private function assertSecretDoesNotExist(string $name) : void
     {
         if (\array_key_exists($name, $this->data['secrets'])) {
             throw SecretAlreadyExistsException::create($name);

@@ -17,6 +17,9 @@ use Secrecy\Adapter\AdapterInterface;
 
 class SecretManager
 {
+    /**
+     * @var AdapterInterface
+     */
     private $adapter;
 
     public function __construct(AdapterInterface $adapter)
@@ -27,17 +30,17 @@ class SecretManager
     /**
      * Retrieve a secret with the given name.
      *
-     * @param $name
-     *
      * @throws Exception\SecretNotFoundException
      */
-    public function get($name): string
+    public function get(string $name): string
     {
         return $this->adapter->get($name);
     }
 
     /**
      * Returns an iterable consisting of key => value pairs.
+     *
+     * @return array<String,String>
      */
     public function list(): iterable
     {
