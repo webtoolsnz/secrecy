@@ -35,4 +35,4 @@ jobs:
       - name: Upload Coverage report
         run: bash <(curl -s https://codecov.io/bash)
       - name: phpstan
-          run: ./vendor/bin/phpstan analyse src
+        run: ./vendor/bin/phpstan analyse src
