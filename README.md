@@ -9,10 +9,10 @@ Secrecy is a secret management abstraction that allows you to easily swap out di
 
  Goals
  ------
- - Promote explicit separation of configuration data and sensitive credentials
- - Provide support for popular secret management services
- - Provide seamless integration with popular frameworks
- - Make it easy to manage your application secrets
+ - [x] Promote explicit separation of configuration data and sensitive credentials
+ - [ ] Provide support for popular secret management services
+ - [ ] Provide seamless integration with popular frameworks
+ - [x] Make it easy to manage your application secrets
 
  
 Installation
