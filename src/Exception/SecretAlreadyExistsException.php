@@ -15,7 +15,7 @@ namespace Secrecy\Exception;
 
 class SecretAlreadyExistsException extends \Exception implements ExceptionInterface
 {
-    public static function create(string $name) : self
+    public static function create(string $name): self
     {
         return new self("Secret with the name '${name}' already exists");
     }

@@ -135,7 +135,7 @@ class JsonFileAdapter implements AdapterInterface
      *
      * @throws JsonFilePersistenceException
      */
-    private function persist() : void
+    private function persist(): void
     {
         try {
             @file_put_contents($this->path, json_encode($this->data, JSON_PRETTY_PRINT));
@@ -147,7 +147,7 @@ class JsonFileAdapter implements AdapterInterface
     /**
      * @throws SecretNotFoundException
      */
-    private function assertSecretExists(string $name) : void
+    private function assertSecretExists(string $name): void
     {
         if (!\array_key_exists($name, $this->data['secrets'])) {
             throw SecretNotFoundException::create($name);
@@ -155,10 +155,9 @@ class JsonFileAdapter implements AdapterInterface
     }
 
     /**
-     *
      * @throws SecretAlreadyExistsException
      */
-    private function assertSecretDoesNotExist(string $name) : void
+    private function assertSecretDoesNotExist(string $name): void
     {
         if (\array_key_exists($name, $this->data['secrets'])) {
             throw SecretAlreadyExistsException::create($name);
